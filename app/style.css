@@ -1,0 +1,114 @@
+@charset "UTF-8";
+/*Обнуление*/
+* {
+  padding: 0;
+  margin: 0;
+  border: 0; }
+
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+:focus, :active {
+  outline: none; }
+
+a:focus, a:active {
+  outline: none; }
+
+nav, footer, header, aside {
+  display: block; }
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; }
+
+input, button, textarea {
+  font-family: inherit; }
+
+input::-ms-clear {
+  display: none; }
+
+button {
+  cursor: pointer; }
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0; }
+
+a, a:visited {
+  text-decoration: none; }
+
+a:hover {
+  text-decoration: none; }
+
+ul li {
+  list-style: none; }
+
+img {
+  vertical-align: top; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: 400; }
+
+/*--------------------*/
+.calculator {
+  width: 640px;
+  height: 676px;
+  border: 1px solid #000;
+  background: url("assets/img/calc.png");
+  padding-top: 105px;
+  border-radius: 30px; }
+  .calculator_screen {
+    margin: 0 0 38px 54px;
+    width: 534px;
+    height: 90px;
+    background-color: green; }
+  .calculator_buttons {
+    display: grid;
+    width: 586px;
+    height: 400px;
+    margin-left: 28px;
+    margin-top: 70px;
+    grid-template-columns: 66px 66px 66px 66px 70px 66px 66px;
+    grid-template-rows: 42px 62px 62px 62px 62px;
+    gap: 19px 20px;
+    grid-template-areas: "logo logo logo logo . . ." ". . . . . . ." ". . . . . . ." ". . . . plus . ." ". . . . plus . ."; }
+  .calculator .logo {
+    grid-area: logo; }
+  .calculator .plus {
+    grid-area: plus; }
+  .calculator .logo {
+    color: #fff;
+    font-size: 30px;
+    font-style: italic; }
+  .calculator .button {
+    color: transparent;
+    cursor: pointer;
+    border-radius: 5px;
+    -webkit-transition: 0.1s;
+    -o-transition: 0.1s;
+    transition: 0.1s; }
+    .calculator .button:active {
+      -webkit-transform: scale(1.2);
+          -ms-transform: scale(1.2);
+              transform: scale(1.2);
+      -webkit-transform: translate(2px, 2px);
+          -ms-transform: translate(2px, 2px);
+              transform: translate(2px, 2px); }
+    .calculator .button:nth-child(6), .calculator .button:nth-child(7n+6) {
+      margin-left: 5px;
+      margin-right: -5px; }
+    .calculator .button:nth-child(n+26) {
+      margin-top: -5px;
+      margin-bottom: 3px; }
+    .calculator .button:nth-child(7), .calculator .button:nth-child(7n+7) {
+      margin-right: -5px; }
+  .calculator .redo {
+    background: url("assets/img/redo.png") no-repeat 50%/cover; }

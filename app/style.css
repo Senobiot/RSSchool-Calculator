@@ -101,7 +101,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 30px;
     font-style: italic; }
   .calculator .button {
-    color: transparent;
+    font-size: 0;
     cursor: pointer;
     border-radius: 5px;
     -webkit-transition: 0.1s;

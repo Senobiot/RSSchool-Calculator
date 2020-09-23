@@ -15,7 +15,10 @@
 		margin: 0 0 38px 54px;
 		width: 534px;
 		height: 90px;
-		background-color: green;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		font-size: 64px;
 	}
 	&_buttons {
 		display: grid;

@@ -8,16 +8,16 @@ let numBtn = document.querySelectorAll(".num"),
 	on = document.querySelector(".on")
 	negativeBtn = document.querySelector(".negative"),
 	percentBtn = document.querySelector(".percent"),
+	powBtn = document.querySelector(".gt"),
 	redoBtn = document.querySelector(".redo"),
-	memCalc = 0,
 	memPlusBtn = document.querySelector(".m_plus"),
 	memMinusBtn = document.querySelector(".m_minus"),
 	memReadBtn = document.querySelector(".mr"),
 	memClearBtn = document.querySelector(".mc"),
+	memCalc = 0,
 	display = document.querySelector(".calculator_screen"),
 	memoryCurrent = 0,
 	oper = "",
-	// memoryNewNumber = false,
 	memoryPendingOperation = "";
 
 for (let i = 0; i < numBtn.length; i++) {
@@ -37,7 +37,12 @@ function numberPress() {
 	} else {
 		if (!memoryPendingOperation) {
 			display.innerHTML += this.innerHTML;
-		} else {
+		} else if (memoryPendingOperation === "pow") {
+			oper = memoryPendingOperation;
+			display.innerHTML = this.innerHTML
+			memoryPendingOperation = 0;
+		}
+		else {
 			memoryCurrent = display.innerHTML;
 			oper = memoryPendingOperation;
 			memoryPendingOperation = 0;
@@ -60,9 +65,7 @@ function operationPress() {
 	} else if (oper === "-") {
 		display.innerHTML = +memoryCurrent - +display.innerHTML ;
 		oper = "";
-	} else {
-
-	}
+	} 
 }
 
 decimalBtn.addEventListener('click', decimal);
@@ -82,17 +85,42 @@ negativeBtn.addEventListener('click', function(){
 	display.innerHTML = - display.innerHTML
 });
 
+resultBtn.addEventListener('click', function(){
+	if (oper === "pow") {
+		let pow = String(Math.pow(memoryCurrent, +display.innerHTML));
+		if (pow.length > 16 ) { 
+			display.classList.add("error");
+			display.innerHTML = pow.slice(0, 15)
+		} else if (pow === "Infinity") {
+			display.classList.add("error");
+			display.innerHTML = 0;
+		}
+		else {
+			display.innerHTML = pow;
+		}
+		memoryPendingOperation = "pow";
+
+	}
+});
+
+
 sqrtBtn.addEventListener('click', function(){
 	let sqrt = Math.sqrt(display.innerHTML);
-	console.log(sqrt)
 	if (sqrt >= 0) {
-		display.innerHTML = Math.sqrt(display.innerHTML);
+		display.innerHTML = String(Math.sqrt(display.innerHTML)).slice(0,15);
 	} else {
 		display.classList.add("error");
 		display.innerHTML = 0;
 	}
-	
 });
+
+powBtn.addEventListener('click', function(){
+	memoryPendingOperation = "pow";
+	oper = "pow"
+	memoryCurrent = +display.innerHTML;
+});
+
+
 
 memPlusBtn.addEventListener('click', function(){
 	memCalc += +display.innerHTML;
@@ -118,6 +146,9 @@ memClearBtn.addEventListener('click', function(){
 });
 
 on.addEventListener('click', function(){
+	display.innerHTML = memoryCurrent = memoryPendingOperation = oper = memCalc = 0;
+	display.classList.remove("memory");
+	display.classList.remove("error");
 	display.style.opacity = "1";
 	display.innerHTML = "0"
 });

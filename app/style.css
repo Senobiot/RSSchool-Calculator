@@ -1,4 +1,34 @@
 @charset "UTF-8";
+@font-face {
+  font-family: 'DigitalRegular';
+  src: url("assets/fonts/DigitalRegular.eot");
+  src: url("assets/fonts/DigitalRegular.eot") format("embedded-opentype"), url("assets/fonts/DigitalRegular.woff2") format("woff2"), url("assets/fonts/DigitalRegular.woff") format("woff"), url("assets/fonts/DigitalRegular.ttf") format("truetype"), url("assets/fonts/DigitalRegular.svg#DigitalRegular") format("svg"); }
+
+@font-face {
+  font-family: 'ADVANCEDPIXELLCD7';
+  src: url("assets/fonts/ADVANCEDPIXELLCD7.eot");
+  src: url("assets/fonts/ADVANCEDPIXELLCD7.eot") format("embedded-opentype"), url("assets/fonts/ADVANCEDPIXELLCD7.woff2") format("woff2"), url("assets/fonts/ADVANCEDPIXELLCD7.woff") format("woff"), url("assets/fonts/ADVANCEDPIXELLCD7.ttf") format("truetype"), url("assets/fonts/ADVANCEDPIXELLCD7.svg#ADVANCEDPIXELLCD7") format("svg"); }
+
+@font-face {
+  font-family: 'DIGITALCOUNTER7';
+  src: url("assets/fonts/DIGITALCOUNTER7.eot");
+  src: url("assets/fonts/DIGITALCOUNTER7.eot") format("embedded-opentype"), url("assets/fonts/DIGITALCOUNTER7.woff2") format("woff2"), url("assets/fonts/DIGITALCOUNTER7.woff") format("woff"), url("assets/fonts/DIGITALCOUNTER7.ttf") format("truetype"), url("assets/fonts/DIGITALCOUNTER7.svg#DIGITALCOUNTER7") format("svg"); }
+
+@font-face {
+  font-family: 'DIGITALCOUNTER7ITALIC';
+  src: url("assets/fonts/DIGITALCOUNTER7ITALIC.eot");
+  src: url("assets/fonts/DIGITALCOUNTER7ITALIC.eot") format("embedded-opentype"), url("assets/fonts/DIGITALCOUNTER7ITALIC.woff2") format("woff2"), url("assets/fonts/DIGITALCOUNTER7ITALIC.woff") format("woff"), url("assets/fonts/DIGITALCOUNTER7ITALIC.ttf") format("truetype"), url("assets/fonts/DIGITALCOUNTER7ITALIC.svg#DIGITALCOUNTER7ITALIC") format("svg"); }
+
+@font-face {
+  font-family: 'DIGITALICG';
+  src: url("fonts/DIGITALICG.eot");
+  src: url("assets/fonts/DIGITALICG.eot") format("embedded-opentype"), url("assets/fonts/DIGITALICG.woff2") format("woff2"), url("assets/fonts/DIGITALICG.woff") format("woff"), url("assets/fonts/DIGITALICG.ttf") format("truetype"), url("assets/fonts/DIGITALICG.svg#DIGITALICG") format("svg"); }
+
+@font-face {
+  font-family: 'electronicanormal';
+  src: url("assets/fonts/electronicanormal.eot");
+  src: url("assets/fonts/electronicanormal.eot") format("embedded-opentype"), url("assets/fonts/electronicanormal.woff2") format("woff2"), url("assets/fonts/electronicanormal.woff") format("woff"), url("assets/fonts/electronicanormal.ttf") format("truetype"), url("assets/fonts/electronicanormal.svg#electronicanormal") format("svg"); }
+
 /*Обнуление*/
 * {
   padding: 0;
@@ -82,7 +112,9 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center;
-    font-size: 64px;
+    font-size: 62px;
+    color: rgba(0, 0, 0, 0.75);
+    font-family: 'DIGITALCOUNTER7';
     position: relative; }
     .calculator_screen.memory:before {
       content: 'M';
@@ -140,3 +172,7 @@ h1, h2, h3, h4, h5, h6 {
       margin-right: -5px; }
   .calculator .redo {
     background: url("assets/img/redo.png") no-repeat 50%/cover; }
+  .calculator .plus {
+    background: url("assets/img/+.png") no-repeat 50%/cover; }
+  .calculator .result {
+    background: url("assets/img/result.png") no-repeat 50%/cover; }

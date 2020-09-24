@@ -19,7 +19,9 @@
 		display: flex;
 		justify-content: flex-end;
 		align-items: center;
-		font-size: 64px;
+		font-size: 62px;
+		color: rgba(0,0,0,0.75);
+		font-family: 'DIGITALCOUNTER7';
 		position: relative;
 		&.memory {
 			&:before {
@@ -95,5 +97,11 @@
 		}
 	.redo {
 		background: url("assets/img/redo.png") no-repeat 50%/cover;
+	}
+	.plus {
+		background: url("assets/img/+.png") no-repeat 50%/cover
+	}
+	.result {
+		background: url("assets/img/result.png") no-repeat 50%/cover
 	}
 }

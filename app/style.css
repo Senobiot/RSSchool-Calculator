@@ -66,8 +66,9 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 105px;
   border-radius: 30px; }
   .calculator_screen {
-    margin: 0 0 38px 54px;
-    width: 534px;
+    opacity: 0;
+    margin: 0 0 38px 100px;
+    width: 480px;
     height: 90px;
     display: -webkit-box;
     display: -webkit-flex;
@@ -81,7 +82,22 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center;
-    font-size: 64px; }
+    font-size: 64px;
+    position: relative; }
+    .calculator_screen.memory:before {
+      content: 'M';
+      position: absolute;
+      top: 5px;
+      left: -40px;
+      font-size: 30px;
+      font-weight: bold; }
+    .calculator_screen.error:after {
+      content: 'E';
+      position: absolute;
+      top: 45px;
+      left: -40px;
+      font-size: 32px;
+      font-weight: bold; }
   .calculator_buttons {
     display: grid;
     width: 586px;

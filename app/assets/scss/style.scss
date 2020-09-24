@@ -12,13 +12,36 @@
 	padding-top: 105px;
 	border-radius: 30px;
 	&_screen {
-		margin: 0 0 38px 54px;
-		width: 534px;
+		opacity: 0;
+		margin: 0 0 38px 100px;
+		width: 480px;
 		height: 90px;
 		display: flex;
 		justify-content: flex-end;
 		align-items: center;
 		font-size: 64px;
+		position: relative;
+		&.memory {
+			&:before {
+				content: 'M';
+				position: absolute;
+				top: 5px;
+				left: -40px;
+				font-size: 30px;
+				font-weight: bold;
+				
+			}
+		}
+		&.error {
+			&:after {
+				content: 'E';
+				position: absolute;
+				top: 45px;
+				left: -40px;
+				font-size: 32px;
+				font-weight: bold;
+			}
+		}
 	}
 	&_buttons {
 		display: grid;

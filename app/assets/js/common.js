@@ -21,10 +21,18 @@ let numBtn = document.querySelectorAll(".num"),
 	oper = "",
 	memoryPendingOperation = "",
 	myAudio = new Audio; 
-	myAudio.src = "assets/libs/04715.mp3";
+	myAudio.src = "assets/libs/sound_2.mp3",
+	allBtns = document.querySelectorAll(".button");
 	let doubleClick;
 	let doubleClickActive;
 
+
+for (let i = 0; i < allBtns.length; i++) {
+	let number = allBtns[i];
+	number.addEventListener('click', function(){
+		myAudio.play();
+	})
+};
 
 for (let i = 0; i < numBtn.length; i++) {
 	let number = numBtn[i];
@@ -60,22 +68,23 @@ function numberPress() {
 }
 // функция обрезки до 14 разрядов, чтоб не вылазило из табло
 function limit() {
-	if (+display.innerHTML >= 10**13 ) {
+	if (+display.innerHTML >= 10**14 ) {
 		display.innerHTML = display.innerHTML.slice(0,14);
 		display.classList.add("error");
+	} else if (Math.abs(display.innerHTML) < 10e-7) {
+		display.innerHTML = 0;
 	} else if (display.innerHTML.length > 14) {
 		display.innerHTML = display.innerHTML.slice(0,14);
-		}
+		} 
 	}
 
 function operationPress() {
-	limit()
+	limit();
 	if (doubleClickActive) { //тут сброс для дабл клика =
 		doubleClickActive = 0;
 		oper = "";
 	}
 
-	myAudio.play();
 	memoryPendingOperation = this.innerHTML;
 	if (oper === "+") {
 		memReadActive ? display.innerHTML = +memCalc + +memoryCurrent :
@@ -130,12 +139,12 @@ negativeBtn.addEventListener('click', function(){
 resultBtn.addEventListener('click', function(){
 	if (oper === "pow") {
 		let pow = String(Math.pow(memoryCurrent, +display.innerHTML));
-		if (pow.length > 16 ) { 
-			display.classList.add("error");
-			display.innerHTML = pow.slice(0, 15)
-		} else if (pow === "Infinity") {
+		if (pow === "Infinity") {
 			display.classList.add("error");
 			display.innerHTML = 0;
+		} else if (pow > 10**13 ) { 
+			display.classList.add("error");
+			display.innerHTML = pow.slice(0, 15)
 		}
 		else {
 			display.innerHTML = pow;
@@ -184,7 +193,7 @@ resultBtn.addEventListener('click', function(){
 			limit();
 		} else {
 			doubleClick = display.innerHTML;
-			display.innerHTML = +parseFloat(memoryCurrent - display.innerHTML ).toPrecision(14);
+			display.innerHTML = +parseFloat(+memoryCurrent - +display.innerHTML ).toPrecision(14);
 			limit();
 		}
 		//memReadActive ? display.innerHTML = +memoryCurrent - +memCalc :
@@ -194,13 +203,6 @@ resultBtn.addEventListener('click', function(){
 	doubleClickActive = 1;
 	memReadActive = 0;
 
-	if (display.innerHTML.length > 14 && !display.innerHTML.includes(".")) {
-		display.style.fontize = "40px";
-	}
-
-	// 	else if (display.innerHTML.length > 14 && display.innerHTML.includes(".")) {
-	//  	display.innerHTML = String(display.innerHTML).slice(0,15)
-	// }
 });
 
 
@@ -249,15 +251,22 @@ memClearBtn.addEventListener('click', function(){
 });
 
 on.addEventListener('click', function(){
+	document.querySelector(".boot_block").classList.add("active");
+	setTimeout(function(){ 
 	display.innerHTML = memoryCurrent = memoryPendingOperation = oper = memCalc = doubleClick = doubleClickActive = 0;
 	display.classList.remove("memory");
 	display.classList.remove("error");
 	display.style.opacity = "1";
 	display.innerHTML = "0"
+	}, 3000);
+
 });
 
 redoBtn.addEventListener('click', function(){
-	if (display.innerHTML.length >1) {
+	if (display.innerHTML.length === 2 && display.innerHTML.includes("-")) {
+		display.innerHTML = 0;
+	}
+	else if (display.innerHTML.length >1) {
 		display.innerHTML = display.innerHTML.slice(0,-1)
 	}	else (display.innerHTML = 0)
 	

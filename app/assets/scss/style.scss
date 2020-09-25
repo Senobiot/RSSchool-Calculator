@@ -5,10 +5,35 @@
 
 
 .calculator {
+	position: relative;
+	.boot_block {display: none;}
+	.boot_block.active {
+		position: absolute;
+		display: block;
+		height: 62px;
+		top: 124px;
+		left: 58px;
+		overflow: hidden;
+		width: 0;
+		white-space: nowrap;
+		font-family: electronicanormal;
+		font-size: 56px;
+		text-transform: uppercase;
+		animation: typing 2.5s steps(18, end) forwards,
+			hiding 0.5s 2.5s forwards;
+	}
+	@keyframes typing {
+		0% {width: 0;}
+		100% {width: 490px;}
+	}
+	@keyframes hiding {
+		0% {opacity: 1;}
+		100% {opacity: 0;}
+	}
 	width: 640px;
 	height: 676px;
 	border: 1px solid #000;
-	background: url("assets/img/calc.png");
+	background: url("assets/img/calc_brush22.png");
 	padding-top: 105px;
 	border-radius: 30px;
 	&_screen {
@@ -43,6 +68,15 @@
 				font-size: 32px;
 				font-weight: bold;
 			}
+		&:before {
+			content: '';
+			position: absolute;
+			left: 5px;
+			top: 145px;
+			width: 530px;
+			height: 380px;
+			z-index: 10;
+		}
 		}
 	}
 	&_buttons {
@@ -70,8 +104,10 @@
 
 		.logo {
 			color: #fff;
-			font-size: 30px;
+			font-size: 34px;
 			font-style: italic;
+			font-family: DigitalRegular;
+			opacity: 0.6;
 		}
 		.button {
 			font-size: 0;
@@ -99,9 +135,101 @@
 		background: url("assets/img/redo.png") no-repeat 50%/cover;
 	}
 	.plus {
-		background: url("assets/img/+.png") no-repeat 50%/cover
+		background: url("assets/img/plus.png") no-repeat 50%/contain;
+		border-radius: 15px;
 	}
 	.result {
-		background: url("assets/img/result.png") no-repeat 50%/cover
+		background: url("assets/img/result.png") no-repeat 50%/contain;
+	}
+	.mu {
+		background: url("assets/img/mu_faq.png") no-repeat 50%/cover;
+	}
+	.gt {
+		background: url("assets/img/gt_pow.png") no-repeat 50%/cover;
+	}
+	.on {
+		background: url("assets/img/on.png") no-repeat 50%/cover;
+		@keyframes typewriter{
+			from{width: 0;}
+			to{width: 526px;}
+		}
+	}
+	.percent {
+		background: url("assets/img/percent.png") no-repeat 50%/cover;
+	}
+	.sqrt {
+		background: url("assets/img/sqrt.png") no-repeat 50%/cover;
+	}
+	.mc {
+		background: url("assets/img/mc.png") no-repeat 50%/cover;
+	}
+	.all_clear {
+		background: url("assets/img/ac.png") no-repeat 50%/cover;
+	}
+	.mult {
+		background: url("assets/img/multiply.png") no-repeat 50%/cover;
+	}
+	.mr {
+		background: url("assets/img/mr.png") no-repeat 50%/cover;
+	}
+	.negative {
+		background: url("assets/img/plus_minus.png") no-repeat 50%/cover;
+	}
+	.minus {
+		background: url("assets/img/-.png") no-repeat 50%/cover;
+	}
+	.m_minus {
+		background: url("assets/img/m-.png") no-repeat 50%/cover;
+	}
+	.m_plus {
+		background: url("assets/img/m+.png") no-repeat 50%/cover;
+	}
+	.clear {
+		background: url("assets/img/c.png") no-repeat 50%/cover;
+	}
+	.decimal {
+		background: url("assets/img/point.png") no-repeat 50%/cover;
+	}
+	.result {
+		background: url("assets/img/result.png") no-repeat 50%/cover;
+	}
+	.division {
+		background: url("assets/img/delim.png") no-repeat 50%/cover;
+	}
+	.button:nth-child(6) {
+		background: url("assets/img/7.png") no-repeat 50%/cover;
+	}
+	.button:nth-child(7) {
+		background: url("assets/img/8.png") no-repeat 50%/cover;
+	}
+	.button:nth-child(8) {
+		background: url("assets/img/9.png") no-repeat 50%/cover;
+	}
+	.button:nth-child(13) {
+		background: url("assets/img/4.png") no-repeat 50%/cover;
+	}
+	.button:nth-child(14) {
+		background: url("assets/img/5.png") no-repeat 50%/cover;
+	}
+	.button:nth-child(15) {
+		background: url("assets/img/6.png") no-repeat 50%/cover;
+	}
+	.button:nth-child(20) {
+		background: url("assets/img/1.png") no-repeat 50%/cover;
+	}
+	.button:nth-child(21) {
+		background: url("assets/img/2.png") no-repeat 50%/cover;
+	}
+	.button:nth-child(22) {
+		background: url("assets/img/3.png") no-repeat 50%/cover;
+	}
+	.button:nth-child(27) {
+	background: url("assets/img/0.png") no-repeat 50%/cover;
+	}
+	.button:nth-child(28) {
+		background: url("assets/img/00.png") no-repeat 50%/cover;
+	}
+	.button:nth-child(30) {
+		margin: 0;
 	}
 }

@@ -1,8 +1,33 @@
-
-
 @import "fonts.scss";
 @import "../css/reset";
+body {
+ 	background: url("assets/img/bg_main.jpg");
+ }
 
+.main-page {
+	position: relative;
+	padding-left: 200px;
+	padding-top: 100px;
+	.faq {
+		position: absolute;
+		font-family: Arial;
+		font-size: 18px;
+		line-height: 1.3;
+		text-align: justify;
+		font-weight: 500;
+		width: 580px;
+		height: 600px;
+		right: 15%;
+		top: 30%;
+		padding: 20px 60px;
+		transform: rotateX(90deg);
+		transition: 1s;
+		background: url("assets/img/bg_faq_3.png") no-repeat 50%/contain;
+	}
+	.faq.active {
+		transform: rotateX(0);
+	}
+}
 
 .calculator {
 	position: relative;
@@ -14,7 +39,8 @@
 		top: 124px;
 		left: 58px;
 		overflow: hidden;
-		width: 0;
+		width: 522px;
+		padding-left: 522px;
 		white-space: nowrap;
 		font-family: electronicanormal;
 		font-size: 56px;
@@ -23,8 +49,8 @@
 			hiding 0.5s 2.5s forwards;
 	}
 	@keyframes typing {
-		0% {width: 0;}
-		100% {width: 490px;}
+		0% {padding-left: 522px;}
+		100% {padding-left: 0px;}
 	}
 	@keyframes hiding {
 		0% {opacity: 1;}
@@ -33,7 +59,7 @@
 	width: 640px;
 	height: 676px;
 	border: 1px solid #000;
-	background: url("assets/img/calc_brush22.png");
+	background: url("assets/img/calc_bg.jpg");
 	padding-top: 105px;
 	border-radius: 30px;
 	&_screen {

@@ -10,6 +10,7 @@ let numBtn = document.querySelectorAll(".num"),
 	percentBtn = document.querySelector(".percent"),
 	powBtn = document.querySelector(".gt"),
 	redoBtn = document.querySelector(".redo"),
+	helpBtn = document.querySelector(".mu"),
 	memPlusBtn = document.querySelector(".m_plus"),
 	memMinusBtn = document.querySelector(".m_minus"),
 	memReadBtn = document.querySelector(".mr"),
@@ -282,3 +283,7 @@ percentBtn.addEventListener('click', function(){
 	} 
 });
 
+helpBtn.addEventListener('click', function(){
+	document.querySelector(".faq").classList.toggle ("active");
+	memCalc = 0;
+});

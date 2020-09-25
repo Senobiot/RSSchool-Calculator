@@ -112,9 +112,9 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center;
-    font-size: 62px;
+    font-size: 66px;
     color: rgba(0, 0, 0, 0.75);
-    font-family: 'DIGITALCOUNTER7';
+    font-family: 'electronicanormal';
     position: relative; }
     .calculator_screen.memory:before {
       content: 'M';

@@ -41,7 +41,7 @@ function numberPress() {
 	if (display.innerHTML === "0") {
 		display.innerHTML = +this.innerHTML
 	} else {
-		if (!memoryPendingOperation) {
+		if (!memoryPendingOperation &&  +display.innerHTML < 10**13) {
 			display.innerHTML += this.innerHTML;
 		} else if (memoryPendingOperation === "pow") {
 			oper = memoryPendingOperation;
@@ -50,7 +50,7 @@ function numberPress() {
 		} else if (memoryPendingOperation === ".") {
 			display.innerHTML += this.innerHTML;
 		}
-		else {
+		else if (memoryPendingOperation && +display.innerHTML < 10**13) {
 			memoryCurrent = display.innerHTML;
 			oper = memoryPendingOperation;
 			memoryPendingOperation = 0;
@@ -58,26 +58,45 @@ function numberPress() {
 		}
 	}
 }
+// функция обрезки до 14 разрядов, чтоб не вылазило из табло
+function limit() {
+	if (+display.innerHTML >= 10**13 ) {
+		display.innerHTML = display.innerHTML.slice(0,14);
+		display.classList.add("error");
+	} else if (display.innerHTML.length > 14) {
+		display.innerHTML = display.innerHTML.slice(0,14);
+		}
+	}
 
 function operationPress() {
-	if (this.classList.contains("result") && !doubleClickActive) {doubleClick = display.innerHTML};
+	limit()
+	if (doubleClickActive) { //тут сброс для дабл клика =
+		doubleClickActive = 0;
+		oper = "";
+	}
+
 	myAudio.play();
 	memoryPendingOperation = this.innerHTML;
-	if (oper === "+" && !doubleClickActive) {
+	if (oper === "+") {
 		memReadActive ? display.innerHTML = +memCalc + +memoryCurrent :
-		display.innerHTML = +display.innerHTML + +memoryCurrent;
+		display.innerHTML = +parseFloat(+display.innerHTML + +memoryCurrent).toPrecision(14);
+		oper = "";
+		limit();	
 	} else if (oper === "*") {
 		memReadActive ? display.innerHTML = +memCalc*(+memoryCurrent) :
-		display.innerHTML = +display.innerHTML*(+memoryCurrent);
-		//oper = "";
+		display.innerHTML = +parseFloat(display.innerHTML*memoryCurrent).toPrecision(14);
+		oper = "";
+		limit();
 	} else if (oper === "/") {
 		memReadActive ? display.innerHTML = +memoryCurrent / +memCalc :
-		display.innerHTML = +memoryCurrent / +display.innerHTML ;
-		//oper = "";
+		display.innerHTML = +parseFloat(memoryCurrent / display.innerHTML).toPrecision(14); ;
+		oper = "";
+		limit();
 	} else if (oper === "-") {
 		memReadActive ? display.innerHTML = +memoryCurrent - +memCalc :
-		display.innerHTML = +memoryCurrent - +display.innerHTML ;
-		//oper = "";
+		display.innerHTML = +parseFloat(+memoryCurrent - +display.innerHTML ).toPrecision(14);
+		oper = "";
+		limit();
 	} 
 }
 
@@ -94,12 +113,12 @@ decimalBtn.addEventListener('click', function() {
 });
 
 c.addEventListener('click', function(){
-	display.innerHTML = memoryCurrent = memoryPendingOperation = oper = 0;
+	display.innerHTML = memoryCurrent = memoryPendingOperation = oper = doubleClick = doubleClickActive = 0;
 	display.classList.remove("error");
 	});
 
 ac.addEventListener('click', function(){
-	display.innerHTML = memoryCurrent = memoryPendingOperation = oper = memCalc = 0;
+	display.innerHTML = memoryCurrent = memoryPendingOperation = oper = memCalc = doubleClick = doubleClickActive =0;
 	display.classList.remove("memory");
 	display.classList.remove("error");
 	});
@@ -123,16 +142,65 @@ resultBtn.addEventListener('click', function(){
 		}
 		memoryPendingOperation = "pow";
 	}
-	
+
+	//doubleClick = memoryCurrent;
+	// тут логика работы дабл клика =, 
+	//что  дает повторять операции с первичным результатом + последняя операция со вторичным числом
+		if (oper === "+") {
+		//memReadActive ? display.innerHTML = +memCalc + +memoryCurrent :
 		if (doubleClickActive) {
-		oper === "+" ? display.innerHTML = +display.innerHTML + +doubleClick :
-		oper === "-" ? display.innerHTML = display.innerHTML - doubleClick :
-		oper === "/" ? display.innerHTML = +display.innerHTML / +doubleClick :
-		oper === "*" ? display.innerHTML = display.innerHTML * doubleClick :
-		doubleClick;
+			display.innerHTML = +parseFloat(+display.innerHTML + +doubleClick).toPrecision(14);
+			limit();
+		} else {
+			doubleClick = +display.innerHTML;
+			display.innerHTML = +parseFloat(+display.innerHTML + +memoryCurrent).toPrecision(14);
+			limit();
 		}
-		doubleClickActive = 1;
+	} else if (oper === "*") {
+		if (doubleClickActive) {
+			display.innerHTML = +parseFloat(+display.innerHTML*(+doubleClick)).toPrecision(14);
+			limit();
+		} else {
+			doubleClick = +display.innerHTML;
+			display.innerHTML = +parseFloat(display.innerHTML*(+memoryCurrent)).toPrecision(14);
+			limit();
+		}
+		//memReadActive ? display.innerHTML = +memCalc*(+memoryCurrent) :
+	} else if (oper === "/") {
+		if (doubleClickActive) {
+			display.innerHTML = +parseFloat(+display.innerHTML / (+doubleClick)).toPrecision(14);
+			limit();
+		}
+		//memReadActive ? display.innerHTML = +memoryCurrent / +memCalc :
+		 else{
+		 	doubleClick = +display.innerHTML;
+		 	display.innerHTML = +parseFloat(+memoryCurrent / (+display.innerHTML)).toPrecision(14);
+		 	limit();
+		 }
+		//oper = "";
+	} else if (oper === "-") {
+	if (doubleClickActive) {
+			display.innerHTML = +parseFloat(+display.innerHTML - +doubleClick).toPrecision(14);
+			limit();
+		} else {
+			doubleClick = display.innerHTML;
+			display.innerHTML = +parseFloat(memoryCurrent - display.innerHTML ).toPrecision(14);
+			limit();
+		}
+		//memReadActive ? display.innerHTML = +memoryCurrent - +memCalc :
+		
+		//oper = "";
+	} 
+	doubleClickActive = 1;
 	memReadActive = 0;
+
+	if (display.innerHTML.length > 14 && !display.innerHTML.includes(".")) {
+		display.style.fontize = "40px";
+	}
+
+	// 	else if (display.innerHTML.length > 14 && display.innerHTML.includes(".")) {
+	//  	display.innerHTML = String(display.innerHTML).slice(0,15)
+	// }
 });
 
 
@@ -181,7 +249,7 @@ memClearBtn.addEventListener('click', function(){
 });
 
 on.addEventListener('click', function(){
-	display.innerHTML = memoryCurrent = memoryPendingOperation = oper = memCalc = 0;
+	display.innerHTML = memoryCurrent = memoryPendingOperation = oper = memCalc = doubleClick = doubleClickActive = 0;
 	display.classList.remove("memory");
 	display.classList.remove("error");
 	display.style.opacity = "1";

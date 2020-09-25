@@ -13,12 +13,18 @@ let numBtn = document.querySelectorAll(".num"),
 	memPlusBtn = document.querySelector(".m_plus"),
 	memMinusBtn = document.querySelector(".m_minus"),
 	memReadBtn = document.querySelector(".mr"),
+	memReadActive = 0;
 	memClearBtn = document.querySelector(".mc"),
 	memCalc = 0,
 	display = document.querySelector(".calculator_screen"),
 	memoryCurrent = 0,
 	oper = "",
-	memoryPendingOperation = "";
+	memoryPendingOperation = "",
+	myAudio = new Audio; 
+	myAudio.src = "assets/libs/04715.mp3";
+	let doubleClick;
+	let doubleClickActive;
+
 
 for (let i = 0; i < numBtn.length; i++) {
 	let number = numBtn[i];
@@ -32,8 +38,8 @@ for (let i = 0; i < operationBtn.length; i++) {
 
 
 function numberPress() {
-	if (+display.innerHTML === 0) {
-		display.innerHTML = this.innerHTML
+	if (display.innerHTML === "0") {
+		display.innerHTML = +this.innerHTML
 	} else {
 		if (!memoryPendingOperation) {
 			display.innerHTML += this.innerHTML;
@@ -41,34 +47,51 @@ function numberPress() {
 			oper = memoryPendingOperation;
 			display.innerHTML = this.innerHTML
 			memoryPendingOperation = 0;
+		} else if (memoryPendingOperation === ".") {
+			display.innerHTML += this.innerHTML;
 		}
 		else {
 			memoryCurrent = display.innerHTML;
 			oper = memoryPendingOperation;
 			memoryPendingOperation = 0;
-			display.innerHTML = this.innerHTML;
+			display.innerHTML = +this.innerHTML;
 		}
 	}
 }
 
 function operationPress() {
+	if (this.classList.contains("result") && !doubleClickActive) {doubleClick = display.innerHTML};
+	myAudio.play();
 	memoryPendingOperation = this.innerHTML;
-	if (oper === "+") {
+	if (oper === "+" && !doubleClickActive) {
+		memReadActive ? display.innerHTML = +memCalc + +memoryCurrent :
 		display.innerHTML = +display.innerHTML + +memoryCurrent;
-		oper = "";
 	} else if (oper === "*") {
+		memReadActive ? display.innerHTML = +memCalc*(+memoryCurrent) :
 		display.innerHTML = +display.innerHTML*(+memoryCurrent);
-		oper = "";
+		//oper = "";
 	} else if (oper === "/") {
+		memReadActive ? display.innerHTML = +memoryCurrent / +memCalc :
 		display.innerHTML = +memoryCurrent / +display.innerHTML ;
-		oper = "";
+		//oper = "";
 	} else if (oper === "-") {
+		memReadActive ? display.innerHTML = +memoryCurrent - +memCalc :
 		display.innerHTML = +memoryCurrent - +display.innerHTML ;
-		oper = "";
+		//oper = "";
 	} 
 }
 
-decimalBtn.addEventListener('click', decimal);
+decimalBtn.addEventListener('click', function() {
+	if (!display.innerHTML.includes(".") && !memoryPendingOperation) {
+		display.innerHTML += ".";
+		memoryPendingOperation = ".";
+	} else if (memoryPendingOperation) {
+		memoryCurrent = display.innerHTML;
+		display.innerHTML = "0.";
+		oper = memoryPendingOperation;
+		memoryPendingOperation = ".";
+	}
+});
 
 c.addEventListener('click', function(){
 	display.innerHTML = memoryCurrent = memoryPendingOperation = oper = 0;
@@ -99,8 +122,17 @@ resultBtn.addEventListener('click', function(){
 			display.innerHTML = pow;
 		}
 		memoryPendingOperation = "pow";
-
 	}
+	
+		if (doubleClickActive) {
+		oper === "+" ? display.innerHTML = +display.innerHTML + +doubleClick :
+		oper === "-" ? display.innerHTML = display.innerHTML - doubleClick :
+		oper === "/" ? display.innerHTML = +display.innerHTML / +doubleClick :
+		oper === "*" ? display.innerHTML = display.innerHTML * doubleClick :
+		doubleClick;
+		}
+		doubleClickActive = 1;
+	memReadActive = 0;
 });
 
 
@@ -137,7 +169,10 @@ memMinusBtn.addEventListener('click', function(){
 });
 
 memReadBtn.addEventListener('click', function(){
+	memoryCurrent = +display.innerHTML;
 	display.innerHTML = memCalc;
+	oper = memoryPendingOperation;
+	memReadActive = 1;
 });
 
 memClearBtn.addEventListener('click', function(){
@@ -170,12 +205,3 @@ percentBtn.addEventListener('click', function(){
 	} 
 });
 
-
-
-
-function decimal(argument) {
-	console.log('click decimal button')
-}
-function clear(classList) {
-
-}

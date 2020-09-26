@@ -5,26 +5,6 @@
   src: url("assets/fonts/DigitalRegular.eot") format("embedded-opentype"), url("assets/fonts/DigitalRegular.woff2") format("woff2"), url("assets/fonts/DigitalRegular.woff") format("woff"), url("assets/fonts/DigitalRegular.ttf") format("truetype"), url("assets/fonts/DigitalRegular.svg#DigitalRegular") format("svg"); }
 
 @font-face {
-  font-family: 'ADVANCEDPIXELLCD7';
-  src: url("assets/fonts/ADVANCEDPIXELLCD7.eot");
-  src: url("assets/fonts/ADVANCEDPIXELLCD7.eot") format("embedded-opentype"), url("assets/fonts/ADVANCEDPIXELLCD7.woff2") format("woff2"), url("assets/fonts/ADVANCEDPIXELLCD7.woff") format("woff"), url("assets/fonts/ADVANCEDPIXELLCD7.ttf") format("truetype"), url("assets/fonts/ADVANCEDPIXELLCD7.svg#ADVANCEDPIXELLCD7") format("svg"); }
-
-@font-face {
-  font-family: 'DIGITALCOUNTER7';
-  src: url("assets/fonts/DIGITALCOUNTER7.eot");
-  src: url("assets/fonts/DIGITALCOUNTER7.eot") format("embedded-opentype"), url("assets/fonts/DIGITALCOUNTER7.woff2") format("woff2"), url("assets/fonts/DIGITALCOUNTER7.woff") format("woff"), url("assets/fonts/DIGITALCOUNTER7.ttf") format("truetype"), url("assets/fonts/DIGITALCOUNTER7.svg#DIGITALCOUNTER7") format("svg"); }
-
-@font-face {
-  font-family: 'DIGITALCOUNTER7ITALIC';
-  src: url("assets/fonts/DIGITALCOUNTER7ITALIC.eot");
-  src: url("assets/fonts/DIGITALCOUNTER7ITALIC.eot") format("embedded-opentype"), url("assets/fonts/DIGITALCOUNTER7ITALIC.woff2") format("woff2"), url("assets/fonts/DIGITALCOUNTER7ITALIC.woff") format("woff"), url("assets/fonts/DIGITALCOUNTER7ITALIC.ttf") format("truetype"), url("assets/fonts/DIGITALCOUNTER7ITALIC.svg#DIGITALCOUNTER7ITALIC") format("svg"); }
-
-@font-face {
-  font-family: 'DIGITALICG';
-  src: url("fonts/DIGITALICG.eot");
-  src: url("assets/fonts/DIGITALICG.eot") format("embedded-opentype"), url("assets/fonts/DIGITALICG.woff2") format("woff2"), url("assets/fonts/DIGITALICG.woff") format("woff"), url("assets/fonts/DIGITALICG.ttf") format("truetype"), url("assets/fonts/DIGITALICG.svg#DIGITALICG") format("svg"); }
-
-@font-face {
   font-family: 'electronicanormal';
   src: url("assets/fonts/electronicanormal.eot");
   src: url("assets/fonts/electronicanormal.eot") format("embedded-opentype"), url("assets/fonts/electronicanormal.woff2") format("woff2"), url("assets/fonts/electronicanormal.woff") format("woff"), url("assets/fonts/electronicanormal.ttf") format("truetype"), url("assets/fonts/electronicanormal.svg#electronicanormal") format("svg"); }
@@ -89,12 +69,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /*--------------------*/
 body {
-  background: url("assets/img/bg_main.jpg"); }
+  background: url("assets/img/bg_main.jpg") no-repeat 50%/cover; }
 
 .main-page {
   position: relative;
-  padding-left: 200px;
-  padding-top: 100px; }
+  padding-left: 10%;
+  padding-top: 10%; }
   .main-page .faq {
     position: absolute;
     font-family: Arial;
@@ -116,6 +96,26 @@ body {
   .main-page .faq.active {
     -webkit-transform: rotateX(0);
             transform: rotateX(0); }
+    .main-page .faq.active .close {
+      cursor: pointer;
+      position: absolute;
+      right: 15px;
+      top: 20px;
+      width: 40px;
+      height: 40px; }
+      .main-page .faq.active .close span {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 5px;
+        background-color: #7C6E60;
+        -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+                transform: rotate(45deg); }
+        .main-page .faq.active .close span:last-child {
+          -webkit-transform: rotate(-45deg);
+              -ms-transform: rotate(-45deg);
+                  transform: rotate(-45deg); }
 
 .calculator {
   position: relative;

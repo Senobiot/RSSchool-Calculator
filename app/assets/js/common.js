@@ -60,7 +60,7 @@ function numberPress() {
 		} else if (memoryPendingOperation === ".") {
 			display.innerHTML += this.innerHTML;
 		}
-		else if (memoryPendingOperation && +display.innerHTML < 10**13) {
+		else if (memoryPendingOperation && +display.innerHTML <= (10**14 - 1)) {
 			memoryCurrent = display.innerHTML;
 			oper = memoryPendingOperation;
 			memoryPendingOperation = 0;
@@ -158,7 +158,7 @@ resultBtn.addEventListener('click', function(){
 		}
 		memoryPendingOperation = "pow";
 	}
-
+	memoryPendingOperation = oper;
 	//doubleClick = memoryCurrent;
 	// тут логика работы дабл клика =, 
 	//что  дает повторять операции с первичным результатом + последняя операция со вторичным числом
@@ -297,5 +297,8 @@ percentBtn.addEventListener('click', function(){
 
 helpBtn.addEventListener('click', function(){
 	document.querySelector(".faq").classList.toggle ("active");
-	memCalc = 0;
+});
+
+document.querySelector(".faq .close").addEventListener('click', function(){
+	document.querySelector(".faq").classList.remove ("active");
 });

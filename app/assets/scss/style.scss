@@ -1,13 +1,13 @@
 @import "fonts.scss";
 @import "../css/reset";
 body {
- 	background: url("assets/img/bg_main.jpg");
+ 	background: url("assets/img/bg_main.jpg") no-repeat 50%/cover;
  }
 
 .main-page {
 	position: relative;
-	padding-left: 200px;
-	padding-top: 100px;
+	padding-left: 10%;
+	padding-top: 10%;
 	.faq {
 		position: absolute;
 		font-family: Arial;
@@ -26,6 +26,25 @@ body {
 	}
 	.faq.active {
 		transform: rotateX(0);
+		.close {
+			cursor: pointer;
+			position: absolute;
+			right: 15px;
+			top: 20px;
+			width: 40px;
+			height: 40px;
+			& span {
+				display: block;
+				position: absolute;
+				width: 100%;
+				height: 5px;
+				background-color: #7C6E60;
+				transform: rotate(45deg);
+				&:last-child {
+					transform: rotate(-45deg);
+				}
+			}
+		}
 	}
 }
 

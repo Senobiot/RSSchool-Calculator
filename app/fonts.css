@@ -1,9 +1,0 @@
-@font-face {
-  font-family: 'DigitalRegular';
-  src: url("assets/fonts/DigitalRegular.eot");
-  src: url("assets/fonts/DigitalRegular.eot") format("embedded-opentype"), url("assets/fonts/DigitalRegular.woff2") format("woff2"), url("assets/fonts/DigitalRegular.woff") format("woff"), url("assets/fonts/DigitalRegular.ttf") format("truetype"), url("assets/fonts/DigitalRegular.svg#DigitalRegular") format("svg"); }
-
-@font-face {
-  font-family: 'electronicanormal';
-  src: url("assets/fonts/electronicanormal.eot");
-  src: url("assets/fonts/electronicanormal.eot") format("embedded-opentype"), url("assets/fonts/electronicanormal.woff2") format("woff2"), url("assets/fonts/electronicanormal.woff") format("woff"), url("assets/fonts/electronicanormal.ttf") format("truetype"), url("assets/fonts/electronicanormal.svg#electronicanormal") format("svg"); }

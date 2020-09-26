@@ -18,11 +18,12 @@ let numBtn = document.querySelectorAll(".num"),
 	memClearBtn = document.querySelector(".mc"),
 	memCalc = 0,
 	display = document.querySelector(".calculator_screen"),
+	blocked = document.querySelector(".calculator"),
 	memoryCurrent = 0,
 	oper = "",
 	memoryPendingOperation = "",
 	myAudio = new Audio; 
-	myAudio.src = "assets/libs/sound_2.mp3",
+	myAudio.src = "assets/libs/sound_3.mp3",
 	allBtns = document.querySelectorAll(".button");
 	let doubleClick;
 	let doubleClickActive;
@@ -72,6 +73,7 @@ function limit() {
 	if (+display.innerHTML >= 10**14 ) {
 		display.innerHTML = display.innerHTML.slice(0,14);
 		display.classList.add("error");
+		blocked.classList.add("blocked");
 	} else if (Math.abs(display.innerHTML) < 10e-7) {
 		display.innerHTML = 0;
 	} else if (display.innerHTML.length > 14) {
@@ -125,12 +127,14 @@ decimalBtn.addEventListener('click', function() {
 c.addEventListener('click', function(){
 	display.innerHTML = memoryCurrent = memoryPendingOperation = oper = doubleClick = doubleClickActive = 0;
 	display.classList.remove("error");
+	blocked.classList.remove("blocked");
 	});
 
 ac.addEventListener('click', function(){
 	display.innerHTML = memoryCurrent = memoryPendingOperation = oper = memCalc = doubleClick = doubleClickActive =0;
 	display.classList.remove("memory");
 	display.classList.remove("error");
+	blocked.classList.remove("blocked");
 	});
 
 negativeBtn.addEventListener('click', function(){
@@ -142,9 +146,11 @@ resultBtn.addEventListener('click', function(){
 		let pow = String(Math.pow(memoryCurrent, +display.innerHTML));
 		if (pow === "Infinity") {
 			display.classList.add("error");
+			blocked.classList.add("blocked");
 			display.innerHTML = 0;
 		} else if (pow > 10**13 ) { 
 			display.classList.add("error");
+			blocked.classList.add("blocked");
 			display.innerHTML = pow.slice(0, 15)
 		}
 		else {
@@ -213,6 +219,7 @@ sqrtBtn.addEventListener('click', function(){
 		display.innerHTML = String(Math.sqrt(display.innerHTML)).slice(0,15);
 	} else {
 		display.classList.add("error");
+		blocked.classList.add("blocked");
 		display.innerHTML = 0;
 	}
 });
@@ -252,11 +259,16 @@ memClearBtn.addEventListener('click', function(){
 });
 
 on.addEventListener('click', function(){
+	display.innerHTML = memoryCurrent = memoryPendingOperation = oper = memCalc = doubleClick = doubleClickActive = 0;
+	display.classList.remove("memory");
+	display.classList.remove("error");
+	blocked.classList.remove("blocked");
 	document.querySelector(".boot_block").classList.add("active");
 	setTimeout(function(){ 
 	display.innerHTML = memoryCurrent = memoryPendingOperation = oper = memCalc = doubleClick = doubleClickActive = 0;
 	display.classList.remove("memory");
 	display.classList.remove("error");
+	blocked.classList.remove("blocked");
 	display.style.opacity = "1";
 	display.innerHTML = "0"
 	}, 3000);

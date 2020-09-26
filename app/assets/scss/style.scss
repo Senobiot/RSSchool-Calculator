@@ -31,6 +31,18 @@ body {
 
 .calculator {
 	position: relative;
+		&.blocked {
+			position: relative;
+			&:after {
+				content: '';
+				position: absolute;
+				left: 105px;
+				top: 256px;
+				width: 530px;
+				height: 380px;
+				z-index: 10;
+			}
+		}
 	.boot_block {display: none;}
 	.boot_block.active {
 		position: absolute;
@@ -94,15 +106,6 @@ body {
 				font-size: 32px;
 				font-weight: bold;
 			}
-		&:before {
-			content: '';
-			position: absolute;
-			left: 5px;
-			top: 145px;
-			width: 530px;
-			height: 380px;
-			z-index: 10;
-		}
 		}
 	}
 	&_buttons {

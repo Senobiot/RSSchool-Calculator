@@ -125,6 +125,16 @@ body {
   background: url("assets/img/calc_bg.jpg");
   padding-top: 105px;
   border-radius: 30px; }
+  .calculator.blocked {
+    position: relative; }
+    .calculator.blocked:after {
+      content: '';
+      position: absolute;
+      left: 105px;
+      top: 256px;
+      width: 530px;
+      height: 380px;
+      z-index: 10; }
   .calculator .boot_block {
     display: none; }
   .calculator .boot_block.active {
@@ -201,14 +211,6 @@ body {
       left: -40px;
       font-size: 32px;
       font-weight: bold; }
-    .calculator_screen.error:before {
-      content: '';
-      position: absolute;
-      left: 5px;
-      top: 145px;
-      width: 530px;
-      height: 380px;
-      z-index: 10; }
   .calculator_buttons {
     display: grid;
     width: 586px;

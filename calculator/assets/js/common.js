@@ -1,3 +1,5 @@
+//повесить запрет на использование кнопки включения и обновить справку + что-то с отрицательными степениями с отрицательных чисел минус текстовый
+
 let numBtn = document.querySelectorAll(".num"),
 	operationBtn = document.querySelectorAll(".operation"),
 	decimalBtn = document.querySelector(".decimal"),
@@ -5,7 +7,7 @@ let numBtn = document.querySelectorAll(".num"),
 	sqrtBtn = document.querySelector(".sqrt"),
 	c = document.querySelector(".clear"),
 	ac = document.querySelector(".all_clear"),
-	on = document.querySelector(".on")
+	on = document.querySelector(".on"),
 	negativeBtn = document.querySelector(".negative"),
 	percentBtn = document.querySelector(".percent"),
 	powBtn = document.querySelector(".gt"),
@@ -14,7 +16,7 @@ let numBtn = document.querySelectorAll(".num"),
 	memPlusBtn = document.querySelector(".m_plus"),
 	memMinusBtn = document.querySelector(".m_minus"),
 	memReadBtn = document.querySelector(".mr"),
-	memReadActive = 0;
+	memReadActive = 0,
 	memClearBtn = document.querySelector(".mc"),
 	memCalc = 0,
 	display = document.querySelector(".calculator_screen"),
@@ -22,11 +24,12 @@ let numBtn = document.querySelectorAll(".num"),
 	memoryCurrent = 0,
 	oper = "",
 	memoryPendingOperation = "",
-	myAudio = new Audio; 
-	myAudio.src = "assets/libs/sound_3.mp3",
-	allBtns = document.querySelectorAll(".button");
+	myAudio = new Audio;
+	let allBtns = document.querySelectorAll(".button"),
+	exp;
 	let doubleClick;
 	let doubleClickActive;
+	myAudio.src = "assets/libs/sound_3.mp3";
 
 
 for (let i = 0; i < allBtns.length; i++) {
@@ -57,11 +60,13 @@ function numberPress() {
 			oper = memoryPendingOperation;
 			display.innerHTML = this.innerHTML
 			memoryPendingOperation = 0;
-		} else if (memoryPendingOperation === ".") {
+		} else if (memoryPendingOperation === "." &&  display.innerHTML.length < 14) {
 			display.innerHTML += this.innerHTML;
 		}
+		else if (memoryPendingOperation === "." &&  display.innerHTML.length >= 14) {
+		}
 		else if (memoryPendingOperation && +display.innerHTML <= (10**14 - 1)) {
-			memoryCurrent = display.innerHTML;
+			memoryCurrent = +display.innerHTML;
 			oper = memoryPendingOperation;
 			memoryPendingOperation = 0;
 			display.innerHTML = +this.innerHTML;
@@ -74,8 +79,11 @@ function limit() {
 		display.innerHTML = display.innerHTML.slice(0,14);
 		display.classList.add("error");
 		blocked.classList.add("blocked");
-	} else if (Math.abs(display.innerHTML) < 10e-7) {
-		display.innerHTML = 0;
+	} else if (display.innerHTML.includes("e-")) { // тут чтобы небыло экспоненциального вида
+		exp = display.innerHTML.replace(/.*e-/, "");
+		if (exp <= 12) {display.innerHTML = (+display.innerHTML).toFixed(+exp + 1)}
+			else {display.innerHTML = 0}
+		if (display.innerHTML[display.innerHTML.length - 1] === "0" && display.innerHTML.length > 1) display.innerHTML = display.innerHTML.slice(0, -1); // тут обрезка если после операции на конце 0
 	} else if (display.innerHTML.length > 14) {
 		display.innerHTML = display.innerHTML.slice(0,14);
 		} 
@@ -142,9 +150,9 @@ negativeBtn.addEventListener('click', function(){
 });
 
 resultBtn.addEventListener('click', function(){
-	if (oper === "pow") {
+	if (oper === "pow" && !doubleClickActive) {
 		let pow = String(Math.pow(memoryCurrent, +display.innerHTML));
-		if (pow === "Infinity") {
+		if (pow === "Infinity" || pow === "NaN") {
 			display.classList.add("error");
 			blocked.classList.add("blocked");
 			display.innerHTML = 0;
@@ -153,8 +161,12 @@ resultBtn.addEventListener('click', function(){
 			blocked.classList.add("blocked");
 			display.innerHTML = pow.slice(0, 15)
 		}
-		else {
+		else if (pow < 10e-7 ) { 
 			display.innerHTML = pow;
+			limit()
+		}
+		else {
+			display.innerHTML = +pow.slice(0, 15);
 		}
 		memoryPendingOperation = "pow";
 	}
@@ -195,7 +207,7 @@ resultBtn.addEventListener('click', function(){
 		 }
 		//oper = "";
 	} else if (oper === "-") {
-	if (doubleClickActive) {
+		if (doubleClickActive) {
 			display.innerHTML = +parseFloat(+display.innerHTML - +doubleClick).toPrecision(14);
 			limit();
 		} else {
@@ -258,7 +270,7 @@ memClearBtn.addEventListener('click', function(){
 	memCalc = 0;
 });
 
-on.addEventListener('click', function(){
+on.addEventListener('click', function off(){
 	display.innerHTML = memoryCurrent = memoryPendingOperation = oper = memCalc = doubleClick = doubleClickActive = 0;
 	display.classList.remove("memory");
 	display.classList.remove("error");
@@ -270,7 +282,8 @@ on.addEventListener('click', function(){
 	display.classList.remove("error");
 	blocked.classList.remove("blocked");
 	display.style.opacity = "1";
-	display.innerHTML = "0"
+	display.innerHTML = "0";
+	on.removeEventListener('click', off); // после клика удаляем его
 	}, 3000);
 
 });

@@ -1,8 +1,9 @@
 ## RSSchool-Calculator
 
+[Deploy LINK](https://senobiot.github.io/RSSchool-Calculator/calculator/) 
+
 Screenshot:
-   ![](https://i.imgur.com/HhJslQh.jpg)
-[Deploy LINK]() 
+ ![](https://i.imgur.com/HhJslQh.jpg)
 
 - калькулятор реализован в соответствии с реально существующей моделью бухгалтерского калькулятора citizen;
 - есть функция работы с памятью M+/M-/MR/MC + индикатор памяти;
